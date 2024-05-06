@@ -16,7 +16,7 @@ def display_team_member(team_member_info) -> None:
     :return: None
     """
     first_name = team_member_info['first name'].title()  # ex: 'mary ann' -> 'Mary Ann'
-    last_name = team_member_info['last name'].title()
+    last_name = team_member_info['last name'].title()    # ex: 'smith jr.' -> 'Smith Jr.'
     full_name = first_name + ' ' + last_name
     role = team_member_info['role']
     image_path = 'images/' + team_member_info['image']
