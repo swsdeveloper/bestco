@@ -20,11 +20,15 @@ def display_team_member(team_member_info) -> None:
     full_name = first_name + ' ' + last_name
     role = team_member_info['role']
     image_path = 'images/' + team_member_info['image']
+    placeholder_path = 'images/placeholder.png'
 
     with next(col_iterator):
         st.subheader(full_name)
         st.write(role)
-        st.image(image_path)
+        try:
+            st.image(image_path)
+        except:
+            st.image(placeholder_path, use_column_width=True)  # display placeholder image
 
     return
 
@@ -51,4 +55,7 @@ col_iterator = itertools.cycle(cols)
 with open('data.csv', newline='') as csvfile:
     data = pd.read_csv(csvfile, sep=',')
     for index, record in data.iterrows():
-        display_team_member(record)
+        try:
+            display_team_member(record)
+        except ValueError:
+            st.write(f"*** Error processing csv record (index=:{index}) - bypassing bad data ***")
