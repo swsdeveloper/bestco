@@ -15,8 +15,8 @@ def display_team_member(team_member_info) -> None:
     :param team_member_info: first name, last name, role, image file name
     :return: None
     """
-    first_name = team_member_info['first name'].capitalize()
-    last_name = team_member_info['last name'].capitalize()
+    first_name = team_member_info['first name'].title()  # ex: 'mary ann' -> 'Mary Ann'
+    last_name = team_member_info['last name'].title()
     full_name = first_name + ' ' + last_name
     role = team_member_info['role']
     image_path = 'images/' + team_member_info['image']
@@ -40,7 +40,7 @@ esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat n
 qui officia deserunt mollit anim id est laborum.
 """
 
-st.title("The Best Company")
+st.header("The Best Company")
 
 st.write(lorem_ipsum)
 
@@ -52,10 +52,10 @@ cols = [col1, col2, col3]
 col_iterator = itertools.cycle(cols)
 
 # Read CSV file
-with open('data.csv', newline='') as csvfile:
-    data = pd.read_csv(csvfile, sep=',')
-    for index, record in data.iterrows():
-        try:
-            display_team_member(record)
-        except ValueError:
-            st.write(f"*** Error processing csv record (index=:{index}) - bypassing bad data ***")
+csvfile = 'data.csv'
+data = pd.read_csv(csvfile, sep=',')  # data is a Pandas DataFrame object
+for index, record in data.iterrows():
+    try:
+        display_team_member(record)
+    except ValueError:
+        st.write(f"*** Error processing csv record (index=:{index}) - bypassing bad data ***")
