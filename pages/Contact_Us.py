@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import send_email as se
+from send_email import send_email
 
 # Build the topics list
 csvfile = 'topics.csv'
@@ -17,7 +17,7 @@ st.set_page_config(layout="wide")
 with st.form(key='Contact Us'):
     user_email = st.text_input("Your email address")
 
-    user_topic = st.selectbox("What topic do you want to discuss?", options=topics, placeholder='Job Inquiries')
+    user_topic = st.selectbox("What topic do you want to discuss?", options=topics, placeholder=topics[0])
 
     user_message = st.text_area("Text")
 
@@ -38,6 +38,6 @@ Subject: {user_topic}  [from: {user_email}]
 {user_message}
 From: {user_email}
 """
-            se.send_email(eml_message)
+            send_email(eml_message)
 
             st.success('Email sent successfully!', icon="✅")
